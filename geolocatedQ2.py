@@ -11,6 +11,6 @@ text_file = sc.textFile("/home/louis/spark/onlyBayLocsUsersWithFreq.txt")
 text_file = text_file.map(lambda line : line.split(" "))
 text_file = text_file.flatMap(lambda line : delUser(line))
 text_file = text_file.map(lambda line : line.split(","))
-text_file = text_file.map(lambda line : (line[0], int(line[1]))) \
-		.reduceByKey(lambda a,b : int(a)+int(b)).sortBy(lambda a :a[1], ascending= False)
-text_file.coalesce(1).saveAsTextFile('/home/louis/spark/outputQ1')
+text_file = text_file.map(lambda line : (line[0], 1)) \
+		.reduceByKey(lambda a,b : a+b).sortBy(lambda a :a[1], ascending= False)
+text_file.coalesce(1).saveAsTextFile('/home/louis/spark/outputQ2')
